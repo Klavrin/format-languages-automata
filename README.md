@@ -1,4 +1,4 @@
-# The title of the work
+# Laboratory Work 1
 
 ### Course: Formal Languages & Finite Automata
 ### Author: Sergiu Gherasim
