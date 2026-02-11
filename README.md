@@ -7,7 +7,7 @@
 
 ## Theory
 A finite automata is a machine that accepts something as input, using that, it outputs something out.
-In our case, we have a automaton that accepts a string. The main purpose of our automaton is to check if the string belongs to our language.
+In our case, we have an automaton that accepts a string. The main purpose of our automaton is to check if the string belongs to our language.
 Our language is defined by the grammar. The grammar is created using the alphabet. The alphabet is a set of characters that are being accepted by the automaton. We also have states, in our case there are 3 states: S, B and D. After some research, I found out that I need to add another state, which is F. F acts as the final step. For instance, when we are in the following state: B → d, we can no longer go anywhere. Therefore, this acts as our final stop in the automaton, for which we are using the state F. Let's also mention transitions. I like to think of transitions as rules (i.e. if I am here (state A), and I do this (char b), then I go here (state B)). Finally, we also have a start state, which is simply the state we start from. 
 
 
