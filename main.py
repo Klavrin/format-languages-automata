@@ -67,9 +67,24 @@ if __name__ == "__main__":
     for _ in range(5):
         generated_string = my_grammar.generateString()
         print(generated_string)
-        gen_strings.append(generated_string)
 
     fa = my_grammar.toFiniteAutomaton()
 
-    for str in gen_strings:
+    tests = [
+        # valid strings
+        "bd",
+        "abcab",
+        "abb",
+        "aaabccccd",
+        "bacab",
+        # invalid strings
+        "a",
+        "abc",
+        "ba",
+        "ac",
+        "dd",
+        "xyz",
+    ]
+
+    for str in tests:
         print(f"\nChecking '{str}': {fa.stringBelongToLanguage(str)}")
