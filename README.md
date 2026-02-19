@@ -1,4 +1,4 @@
-# Laboratory Work 1
+# Regular Grammars & Finite Automata
 
 ### Course: Formal Languages & Finite Automata
 ### Author: Sergiu Gherasim
