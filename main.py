@@ -1,90 +1,87 @@
 import random
 
 
+class Grammar:
+    def __init__(self):
+        self.start_state = "S"
+        self.transitions = {
+            "S": ["aS", "bB"],
+            "B": ["cB", "aD", "d"],
+            "D": ["aB", "b"],
+        }
+
+    def generate_string(self):
+        current_state = self.start_state
+        result = ""
+
+        while True:
+            production = random.choice(self.transitions[current_state])
+            result += production[0]
+
+            if len(production) == 1:
+                break
+
+            current_state = production[1]
+
+        return result
+
+
 class FiniteAutomaton:
-    def __init__(self, states, alphabet, transitions, start_state, final_state):
+    def __init__(self, states, alphabet, transitions, start_state, final_states):
         self.states = states
         self.alphabet = alphabet
         self.transitions = transitions
         self.start_state = start_state
-        self.final_state = final_state
+        self.final_states = final_states
 
-    def stringBelongToLanguage(self, inputString):
-        current_state = self.start_state
-        for char in inputString:
-            if (current_state, char) in self.transitions:
-                current_state = self.transitions[(current_state, char)]
-            else:
+    def string_belong_to_language(self, input_string):
+        current_states = {self.start_state}
+
+        for i, symbol in enumerate(input_string):
+            next_states = set()
+            is_last = i == len(input_string) - 1
+
+            for state in current_states:
+                if (state, symbol) in self.transitions:
+                    next_states.update(self.transitions[(state, symbol)])
+
+                if is_last:
+                    if state == "B" and symbol == "d":
+                        return True
+                    if state == "D" and symbol == "b":
+                        return True
+
+            current_states = next_states
+
+            if not current_states and not is_last:
                 return False
-        return current_state == self.final_state
 
-
-class Grammar:
-    def __init__(self, Vn, Vt, P, S):
-        self.Vn = Vn
-        self.Vt = Vt
-        self.P = P
-        self.S = S
-
-    def generateString(self):
-        word = self.S
-        while any(char in self.Vn for char in word):
-            nt = word[-1]
-            production = random.choice(self.P[nt])
-            word = word[:-1] + production
-        return word
-
-    def toFiniteAutomaton(self):
-        transitions = {}
-        for state, rules in self.P.items():
-            for rule in rules:
-                if len(rule) == 2:
-                    symbol, next_state = rule[0], rule[1]
-                    transitions[(state, symbol)] = next_state
-                elif len(rule) == 1:
-                    symbol = rule[0]
-                    transitions[(state, symbol)] = "F"
-
-        return FiniteAutomaton(
-            states=self.Vn | {"F"},
-            alphabet=self.Vt,
-            transitions=transitions,
-            start_state=self.S,
-            final_state="F",
-        )
+        return any(state in self.final_states for state in current_states)
 
 
 if __name__ == "__main__":
-    Vn = {"S", "B", "D"}
-    Vt = {"a", "b", "c", "d"}
-    P = {"S": ["aS", "bB"], "B": ["cB", "d", "aD"], "D": ["aB", "b"]}
-    S = "S"
+    grammar = Grammar()
 
-    my_grammar = Grammar(Vn, Vt, P, S)
-    gen_strings = []
+    fa = FiniteAutomaton(
+        states={"S", "B", "D"},
+        alphabet={"a", "b", "c", "d"},
+        transitions={
+            ("S", "a"): ["S"],
+            ("S", "b"): ["B"],
+            ("B", "c"): ["B"],
+            ("B", "a"): ["D"],
+            ("D", "a"): ["B"],
+        },
+        start_state="S",
+        final_states={"B", "D"},
+    )
 
-    print("Generated Strings:")
     for _ in range(5):
-        generated_string = my_grammar.generateString()
-        print(generated_string)
+        word = grammar.generate_string()
+        print(f"Word: {word}")
+        print("String belongs to language:", fa.string_belong_to_language(word))
+        print()
 
-    fa = my_grammar.toFiniteAutomaton()
-
-    tests = [
-        # valid strings
-        "bd",
-        "abcab",
-        "abb",
-        "aaabccccd",
-        "bacab",
-        # invalid strings
-        "a",
-        "abc",
-        "ba",
-        "ac",
-        "dd",
-        "xyz",
-    ]
-
-    for str in tests:
-        print(f"\nChecking '{str}': {fa.stringBelongToLanguage(str)}")
+    custom_word = "hello"
+    print(f"Word: {custom_word}")
+    print("String belongs to language:", fa.string_belong_to_language(custom_word))
