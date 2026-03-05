@@ -65,3 +65,12 @@ To obtain a deterministic automaton, the program applies the subset construction
 The procedure begins with the start state of the NDFA and gradually constructs new DFA states by combining reachable states under each input symbol. This process continues until no additional state sets can be produced.
 
 The final deterministic automaton accepts the same language as the original non-deterministic automaton while ensuring that every transition leads to a single well-defined state.
+
+### Conclusion
+This laboratory demonstrates the fundamental concepts behind finite automata and their relationship with formal grammars. By implementing a finite automaton structure and related algorithms, the project provides practical insight into how theoretical models from formal language theory can be represented and manipulated programmatically.
+
+Through the determinism detection mechanism, it becomes possible to identify whether an automaton behaves deterministically or allows multiple transitions for the same state and input symbol. The NDFA to DFA conversion further illustrates that non-deterministic automata do not possess greater computational power than deterministic ones, since an equivalent deterministic automaton can always be constructed using the subset construction method.
+
+Additionally, exploring the connection between automata and regular grammars highlights the equivalence between different representations of regular languages within the Chomsky hierarchy. This reinforces the theoretical understanding that regular grammars, deterministic finite automata, and non-deterministic finite automata describe the same class of languages.
+
+Overall, the implementation bridges theory and practice by translating formal definitions into working algorithms, strengthening both conceptual understanding and programming skills related to automata and language processing.
