@@ -1,7 +1,7 @@
 # Laboratory Work 3 — Lexer & Scanner
 
 **Course:** Formal Languages & Finite Automata  
-**Author:** *(your name)*  
+**Author:** *Sergiu Gherasim*  
 **Date:** March 2026
 
 ---
