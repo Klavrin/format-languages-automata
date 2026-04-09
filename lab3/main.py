@@ -1,5 +1,9 @@
 from lexer import Lexer, TokenType
 
+# let x = 42 * 3.14;
+# func add(a, b) { return a + b; }
+# if (x > 0 && x <= 100) { print("in range"); }
+
 SAMPLES: dict[str, str] = {
     "Variables & Arithmetic": """\
 let x = 42;
